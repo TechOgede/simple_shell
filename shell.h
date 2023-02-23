@@ -12,18 +12,19 @@
 extern char **environ;
 
 /**
-* builtin - a struct of commands built into the shell
+* struct builtin - a struct of commands built into the shell
 * @cmd: a string that denotes the command
 * @func: a pointer to a function
 *
-* Description: The struct would be accessed cmd would be conmpared with the user's command
+* Description: The struct would be accessed
+* cmd would be conmpared with the user's command
 */
 
 typedef struct builtin
 {
 	char *cmd;
 	int (*func)(char **args);
-}builtin;
+} builtin;
 
 void shell_prompt(void);
 char *shell_get_line(char **argvi, FILE *fp);
