@@ -12,7 +12,7 @@
 
 char **shell_parse_line(char *line)
 {
-	char **args, *token, *sep = " \n";
+	char **args, *token, *sep = " \n\t\r\a";
 	int pos = 0;
 
 	args = malloc(sizeof(char *) * 32);
