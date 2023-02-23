@@ -40,6 +40,8 @@ char *shell_comment_check(char *line);
 int shell_check_file(int argc, char **argv);
 char **shell_dup_env(void);
 int _unsetenv(char *name);
+int _setenv(char *name, char *value);
+char *shell_mode(int file_mode, int term_mode, FILE *fp);
 
 /* shell_builtins*/
 int shell_exit(char **args);
@@ -55,5 +57,12 @@ int go_to_prev_dir(char *curr_dir);
 int isdelim(char c, char *delim);
 char *_strtok(char *str, char *delim);
 
-
+/* string funcs */
+char *_strcat(char *dest, char *src);
+int _atoi(char *str);
+int _strlen(char *str);
+int _strcmp(char *s1, char *s2);
+char *_strdup(char *str);
+int _strncmp(char *s1, char *s2, int n);
+char *_strcpy(char *dest, char *src);
 #endif

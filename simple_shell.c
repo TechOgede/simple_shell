@@ -36,10 +36,10 @@ int main(int argc, char **argv)
 {
 	char *line, **args, *command;
 	int cmd_sep, term_mode = 0, status, file_mode;
-	FILE *fp;
+	FILE *fp = NULL;
 
 	if (isatty(STDIN_FILENO))
-			term_mode = 1;
+		term_mode = 1;
 	file_mode = shell_check_file(argc, argv);
 	if (file_mode)
 	{
@@ -50,10 +50,7 @@ int main(int argc, char **argv)
 	{
 		if (term_mode)
 			shell_prompt();
-		if ((!file_mode && !term_mode) || term_mode)
-			line = shell_get_line(NULL, NULL);
-		if (file_mode && !term_mode)
-			line = shell_get_line(NULL, fp);
+		line = shell_mode(file_mode, term_mode, fp);
 		line = shell_comment_check(line);
 		cmd_sep = shell_cmd_sep_check(line, ";");
 		if (cmd_sep)
@@ -74,4 +71,4 @@ int main(int argc, char **argv)
 		shell_free_exit(status, line, args);
 	}
 	return (0);
-
+}
