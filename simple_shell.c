@@ -35,23 +35,25 @@ void shell_prompt(void)
 int main(int argc, char **argv)
 {
 	char *line, **args, *command;
-	int cmd_sep, term_mode, status, file_mode = 0;
+	int cmd_sep, term_mode = 0, status, file_mode;
 	FILE *fp;
 
-	term_mode = isatty(STDIN_FILENO);
+	if (isatty(STDIN_FILENO))
+			term_mode = 1;
 	file_mode = shell_check_file(argc, argv);
-	fp = fopen(argv[1], "r");
 	if (file_mode)
+	{
 		term_mode = 0;
+		fp = fopen(argv[1], "r");
+	}
 	while (1)
 	{
 		if (term_mode)
-		{
 			shell_prompt();
+		if ((!file_mode && !term_mode) || term_mode)
 			line = shell_get_line(NULL, NULL);
-		}
-		if (file_mode)
-			line = shell_get_line(argv, fp);
+		if (file_mode && !term_mode)
+			line = shell_get_line(NULL, fp);
 		line = shell_comment_check(line);
 		cmd_sep = shell_cmd_sep_check(line, ";");
 		if (cmd_sep)
@@ -71,7 +73,5 @@ int main(int argc, char **argv)
 		}
 		shell_free_exit(status, line, args);
 	}
-
-
 	return (0);
-}
+
