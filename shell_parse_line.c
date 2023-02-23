@@ -21,13 +21,13 @@ char **shell_parse_line(char *line)
 		perror(NULL);
 		exit(EXIT_FAILURE);
 	}
-	token = strtok(line, sep);
+	token = _strtok(line, sep);
 	args[pos] = token;
 
 	while (token)
 	{
 		pos++;
-		token = strtok(NULL, sep);
+		token = _strtok(NULL, sep);
 		args[pos] = token;
 	}
 	args[pos++] = NULL;
