@@ -122,7 +122,7 @@ int shell_cd(char **args)
 		perror("Usage: cd [Directory]\n");
 		return (-1);
 	}
-	curr_dir = calloc(sizeof(char) * 1024);
+	curr_dir = malloc(sizeof(char) * 1024);
 	if (!curr_dir)
 	{
 		perror(NULL);
